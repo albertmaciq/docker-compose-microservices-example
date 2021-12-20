@@ -3,6 +3,7 @@ services:
     app:
       image: docker-example:latest
       build:
+        context: docker-example
         dockerfile: ./Dockerfile
       container_name: docker-example
       ports:
