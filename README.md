@@ -7,8 +7,12 @@ En principio sólo tendremos un endpoint **`/`** que contendrá el mensaje `"Hel
 ## ️ ⚙️ Ejecución ️y configuración
 Para iniciar la aplicación, debemos correr los siguientes comandos:
 ```
-mvn clean package 
+mvn clean package
+```
+```
 docker-compose build --no-cache app
+```
+```
 docker-compose up --build
 ```
 Se debe tener `Docker-Desktop` en el ordenador, puesto que se va a crear un contenedor de la app (`docker-compose-microservices-example`)
