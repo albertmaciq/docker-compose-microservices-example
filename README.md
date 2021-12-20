@@ -18,7 +18,7 @@ docker-compose up --build
 Se debe tener `Docker-Desktop` en el ordenador, puesto que se va a crear un contenedor de la app (`docker-compose-microservices-example`)
 que contendrá los siguientes servicios:
 - servicio con grafana (`docker-grafana`: [http://localhost:3000](http://localhost:3000))
-- servicio con pgAdmin (`docker-pgadmin_container`: [http://localhost:5050](http://localhost:5050)) (Ver apartado `Configuración pgAdmin`)
+- servicio con pgAdmin (`docker-pgadmin_container`: [http://localhost:5050](http://localhost:5050))
 - servicio con la app (`docker-example`: [http://localhost:8080](http://localhost:8080))
 - servicio con cadvisor (`docker-cadvisor`: [http://localhost:8090](http://localhost:8090))
 - servicio con prometheus (`docker-prometheus`: [http://localhost:9090](http://localhost:9090))
