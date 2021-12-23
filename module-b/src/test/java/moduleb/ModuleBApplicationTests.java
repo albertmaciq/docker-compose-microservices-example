@@ -1,10 +1,10 @@
-package docker;
+package moduleb;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class DemoApplicationTests {
+class ModuleBApplicationTests {
 
   @Test
   void contextLoads() {}

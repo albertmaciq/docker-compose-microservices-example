@@ -3,9 +3,11 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<modules>
-		<module>docker-example</module>
+		<module>module-a</module>
+		<module>module-b</module>
 		<module>jmeter-test</module>
-	</modules>
+        <module>restassured</module>
+    </modules>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -17,7 +19,7 @@
 	<groupId>com.example</groupId>
 	<artifactId>docker</artifactId>
 	<packaging>pom</packaging>
-	<name>docker</name>
+	<name>modulea</name>
 
 	<properties>
 		<java.version>11</java.version>

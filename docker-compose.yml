@@ -1,13 +1,22 @@
 version: '3.2'
 services:
-    app:
-      image: docker-example:latest
+    module-a:
+      image: module-a:latest
       build:
-        context: docker-example
+        context: module-a
         dockerfile: ./Dockerfile
-      container_name: docker-example
+      container_name: module-a
       ports:
         - "8080:8080"
+
+    module-b:
+      image: module-b:latest
+      build:
+        context: module-b
+        dockerfile: ./Dockerfile
+      container_name: module-b
+      ports:
+        - "8083:8083"
 
     pgadmin:
       image: dpage/pgadmin4:latest

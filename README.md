@@ -2,7 +2,14 @@
 
 ## ✏️Descripción general
  Repositorio simple para el uso y despliegue de servicios a través de ***docker-compose***.
-En principio sólo tendremos un endpoint **`/`** que contendrá el mensaje `"Hello World!"`.
+
+ Dicho repositorio muestra también como funciona, de una manera muy simple, la comunicación entre módulos. 
+Por un lado tendremos un endpoint `/` que contiene el mensaje del `module-a` (`"Hello"`) y por otro lado 
+tendremos el endpoint `/moduleB` que contendrá el mensaje referente al `module-b` (`"module-b!""`).
+
+Posteriormente se ha utilizado un `RestTemplate` para favorecer dicha comunicación entre módulos
+y dar lugar a un mensaje en conjunto a través del endpoint (`/`) de `module-a`: `Hello module-b!`.
+En otras palabras, `module-a` llama a `module-b`.
 
 ## ️ ⚙️ Ejecución ️y configuración
 Para iniciar la aplicación, debemos correr los siguientes comandos:
@@ -10,17 +17,18 @@ Para iniciar la aplicación, debemos correr los siguientes comandos:
 mvn clean package
 ```
 ```
-docker-compose build --no-cache app
+modulea-compose build --no-cache app
 ```
 ```
-docker-compose up --build
+modulea-compose up --build
 ```
-Se debe tener `Docker-Desktop` en el ordenador, puesto que se va a crear un contenedor de la app (`docker-compose-microservices-example`)
+Se debe tener `Docker-Desktop` en el ordenador, puesto que se va a crear un contenedor de la app (`modulea-compose-microservices-example`)
 que contendrá los siguientes servicios:
 - servicio con grafana (`docker-grafana`: [http://localhost:3000](http://localhost:3000))
 - servicio con pgAdmin (`docker-pgadmin_container`: [http://localhost:5050](http://localhost:5050))
-- servicio con la app (`docker-example`: [http://localhost:8080](http://localhost:8080))
-- servicio con cadvisor (`docker-cadvisor`: [http://localhost:8090](http://localhost:8090))
+- servicio con la app principal (`module-a`: [http://localhost:8080](http://localhost:8080))
+- servicio con module-b (este servicio sólo es accesible a través de `module-a`)
+- servicio con cadvisor (`modulea-cadvisor`: [http://localhost:8090](http://localhost:8090))
 - servicio con prometheus (`docker-prometheus`: [http://localhost:9090](http://localhost:9090))
 
 > ***NOTA***: Actualmente se tiene a los servicios de `grafana` y `pgAdmin` sin ninguna configuración previa, es
