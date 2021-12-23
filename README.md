@@ -35,3 +35,11 @@ que contendrá los siguientes servicios:
 > decir se puede acceder a ellos, pero no presentan datos. Se puede añadir en posteriores iteraciones en caso de 
 > que se desee.
 
+## Google Java Format
+```
+mvn com.coveo:fmt-maven-plugin:format
+```
+```
+mvn com.coveo:fmt-maven-plugin:check
+```
+
