@@ -5,7 +5,6 @@ services:
       build:
         context: module-a
         dockerfile: ./Dockerfile
-      container_name: module-a
       ports:
         - "8080:8080"
 
@@ -14,14 +13,12 @@ services:
       build:
         context: module-b
         dockerfile: ./Dockerfile
-      container_name: module-b
       ports:
         - "8083:8083"
 
     pgadmin:
       image: dpage/pgadmin4:latest
       restart: always
-      container_name: docker-pgadmin_container
       ports:
         - "5050:80"
       environment:
@@ -31,7 +28,6 @@ services:
 
     cadvisor:
       image: gcr.io/cadvisor/cadvisor:v0.40.0
-      container_name: docker-cadvisor
       privileged: true
       command:
         - '-port=8090'
@@ -47,7 +43,6 @@ services:
 
     prometheus:
       image: prom/prometheus:v2.30.0
-      container_name: docker-prometheus
       ports:
         - "9090:9090"
       volumes:
@@ -55,7 +50,6 @@ services:
 
     grafana:
       image: grafana/grafana:8.1.5
-      container_name: docker-grafana
       ports:
         - "3000:3000"
       volumes:

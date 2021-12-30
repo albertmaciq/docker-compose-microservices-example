@@ -19,7 +19,6 @@
 	<groupId>com.example</groupId>
 	<artifactId>docker</artifactId>
 	<packaging>pom</packaging>
-	<name>modulea</name>
 
 	<properties>
 		<java.version>11</java.version>
