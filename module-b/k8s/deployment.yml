@@ -1,0 +1,77 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: module-b
+  name: module-b
+  namespace: vass-radar-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: module-b
+  template:
+    metadata:
+      labels:
+        app: module-b
+        role: service
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "8080"
+        prometheus.io/path: "/actuator/prometheus"
+    spec:
+      tolerations:
+        - key: "spotInstance"
+          operator: "Equal"
+          value: "true"
+          effect: "PreferNoSchedule"
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 1
+              preference:
+                matchExpressions:
+                  - key: lifecycle
+                    operator: In
+                    values:
+                      - EC2Spot
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: intent
+                    operator: In
+                    values:
+                      - apps
+      containers:
+        - image: harbor.tyc.vass.es/vass-radar-app/module-b:2.6.0
+          imagePullPolicy: Always
+          name: module-a
+          livenessProbe:
+            httpGet:
+              path: /actuator/health/liveness
+              port: 8080
+            initialDelaySeconds: 30
+            periodSeconds: 30
+            timeoutSeconds: 5
+          readinessProbe:
+            httpGet:
+              path: /actuator/health/readiness
+              port: 8080
+            initialDelaySeconds: 30
+            periodSeconds: 30
+            timeoutSeconds: 5
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: cloud
+            - name: JAVA_OPTS
+              value: >-
+                    -Xlog:gc
+                    -XX:+UseParallelGC
+          resources:
+            requests:
+              cpu: 210m
+              memory: 450M
+            limits:
+              cpu: 300m
+              memory: 700M
+

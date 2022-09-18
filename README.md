@@ -17,23 +17,20 @@ Para iniciar la aplicación, debemos correr los siguientes comandos:
 mvn clean package
 ```
 ```
-modulea-compose build --no-cache app
+docker-compose build --no-cache app
 ```
 ```
-modulea-compose up --build
+docker-compose up --build
 ```
 Se debe tener `Docker-Desktop` en el ordenador, puesto que se va a crear un contenedor de la app (`modulea-compose-microservices-example`)
 que contendrá los siguientes servicios:
-- servicio con grafana (`docker-grafana`: [http://localhost:3000](http://localhost:3000))
-- servicio con pgAdmin (`docker-pgadmin_container`: [http://localhost:5050](http://localhost:5050))
 - servicio con la app principal (`module-a`: [http://localhost:8080](http://localhost:8080))
 - servicio con module-b (este servicio sólo es accesible a través de `module-a`)
-- servicio con cadvisor (`modulea-cadvisor`: [http://localhost:8090](http://localhost:8090))
-- servicio con prometheus (`docker-prometheus`: [http://localhost:9090](http://localhost:9090))
 
-> ***NOTA***: Actualmente se tiene a los servicios de `grafana` y `pgAdmin` sin ninguna configuración previa, es
-> decir se puede acceder a ellos, pero no presentan datos. Se puede añadir en posteriores iteraciones en caso de 
-> que se desee.
+## 🔗  Acceso a API's
+>`Module a`: https://module-a.52.209.128.30.nip.io
+
+>`Module b`: https://module-b.52.209.128.30.nip.io/moduleB
 
 ## Google Java Format
 ```
@@ -42,4 +39,31 @@ mvn com.coveo:fmt-maven-plugin:format
 ```
 mvn com.coveo:fmt-maven-plugin:check
 ```
+
+## Docker
+```
+mvn clean spring-boot:build-image -pl module-a
+```
+```
+mvn clean spring-boot:build-image -pl module-b
+```
+```
+kubectl delete service/module-a -n vass-radar-app
+```
+```
+kubectl delete service/module-b -n vass-radar-app
+```
+```
+kubectl delete deployment.apps/module-a -n vass-radar-app
+```
+```
+kubectl delete deployment.apps/module-b -n vass-radar-app
+```
+```
+kubectl apply -f service.yml
+```
+```
+kubectl apply -f deployment.yml
+```
+
 

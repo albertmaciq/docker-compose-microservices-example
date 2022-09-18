@@ -1,0 +1,24 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: cert-manager-apps-internal
+    kubernetes.io/ingress.class: ingressinternal
+  labels:
+    app: module-a
+  name: module-a
+  namespace: vass-radar-app
+spec:
+  rules:
+  - host: module-a.52.209.128.30.nip.io
+    http:
+      paths:
+      - backend:
+          serviceName: module-a
+          servicePort: 80
+        path: /
+        pathType: ImplementationSpecific
+  tls:
+  - hosts:
+    - module-a.52.209.128.30.nip.io
+    secretName: vassradar2-tls

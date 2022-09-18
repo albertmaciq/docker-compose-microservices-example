@@ -5,8 +5,6 @@
 	<modules>
 		<module>module-a</module>
 		<module>module-b</module>
-		<module>jmeter-test</module>
-        <module>restassured</module>
     </modules>
 
 	<parent>
@@ -19,12 +17,19 @@
 	<groupId>com.example</groupId>
 	<artifactId>docker</artifactId>
 	<packaging>pom</packaging>
-	<name>modulea</name>
 
-	<properties>
-		<java.version>11</java.version>
-	</properties>
-
+    <properties>
+        <k8s.name>${project.artifactId}</k8s.name>
+        <k8s.namespace>eks-tyc-harbor</k8s.namespace>
+        <k8s.registry>harbor.tyc.vass.es/vass-radar-app</k8s.registry>
+        <k8s.image>${k8s.registry}/${k8s.name}:${project.version}</k8s.image>
+        <java.version>11</java.version>
+        <spring-boot.version>2.3.0.RELEASE</spring-boot.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <spring-boot.build-image.imageName>${k8s.image}</spring-boot.build-image.imageName>
+        <spring-boot.run.profiles>local</spring-boot.run.profiles>
+    </properties>
+    
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -45,7 +50,15 @@
 			<groupId>io.micrometer</groupId>
 			<artifactId>micrometer-registry-prometheus</artifactId>
 		</dependency>
-	</dependencies>
+        <!-- https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-dependencies -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-dependencies</artifactId>
+            <version>2021.0.0</version>
+            <type>pom</type>
+            <scope>runtime</scope>
+        </dependency>
+    </dependencies>
 
 	<build>
 		<plugins>
@@ -54,7 +67,7 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 			<!-- Checkstyle -->
-			<plugin>
+			<!--<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-checkstyle-plugin</artifactId>
 				<version>3.1.1</version>
@@ -74,7 +87,7 @@
 						</goals>
 					</execution>
 				</executions>
-			</plugin>
+			</plugin> -->
 
 			<!-- Google Java Format -->
 			<plugin>
